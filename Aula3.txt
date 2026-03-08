@@ -1,0 +1,94 @@
+Atividade
+1-O que e um Tipo Abstrato de Dados (TAD) e qual a caracterıstica fundamental na sua
+utilização?
+
+R: Um Tipo Abstrato de Dados (TAD) é um modelo que define um conjunto de dados e as operações que podem ser realizadas sobre esses dados, sem expor a forma como eles são implementados internamente.
+A característica fundamental é a abstração:
+o usuário do TAD utiliza apenas as operações disponíveis, sem precisar conhecer como os dados são armazenados ou manipulados internamente.
+
+2. Quais as vantagens de se programar com TADs?
+
+R:Vantagens de programar com TADs
+
+- Encapsulamento
+Os dados ficam protegidos e só podem ser manipulados pelas funções definidas.
+- Organização do código
+Facilita a estruturação e entendimento do programa.
+- Reutilização de código
+O mesmo TAD pode ser utilizado em vários programas.
+- Facilidade de manutenção
+Alterações internas podem ser feitas sem modificar o código que utiliza o TAD.
+- Redução de erros
+O acesso controlado evita manipulação incorreta dos dados.
+
+3. Crie um TAD que implemente o controle de uma conta bancaria, implemente funções para inicializar, deposito, sacar e imprimir o saldo.
+
+R:
+#include <stdio.h>
+
+typedef struct {
+    float saldo;
+} Conta;
+
+void inicializar(Conta *c) {
+    c->saldo = 0;
+}
+
+void deposito(Conta *c, float valor) {
+    c->saldo += valor;
+}
+
+void sacar(Conta *c, float valor) {
+
+    if(valor <= c->saldo)
+        c->saldo -= valor;
+    else
+        printf("Saldo insuficiente\n");
+
+}
+
+int main() {
+
+    Conta minhaConta;
+
+    inicializar(&minhaConta);
+
+    deposito(&minhaConta, 500);
+    sacar(&minhaConta, 200);
+
+    imprimirSaldo(&minhaConta);
+
+    return 0;
+}
+
+4. Utilizando a alocação dinamica de memoria crie uma função para criar uma nova conta bancaria
+
+R:
+#include <stdlib.h>
+
+Conta* criarConta() {
+
+    Conta *c;
+
+    c = (Conta*) malloc(sizeof(Conta));
+
+    if(c != NULL)
+        c->saldo = 0;
+
+    return c;
+}
+
+int main() {
+
+    Conta *conta;
+
+    conta = criarConta();
+
+    deposito(conta, 1000);
+    sacar(conta, 250);
+
+    imprimirSaldo(conta);
+
+    return 0;
+}
+
